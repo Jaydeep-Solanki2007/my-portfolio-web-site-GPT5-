@@ -1,0 +1,143 @@
+<!-- contact.html -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact — Jaydeep Solanki</title>
+<style>
+  :root{--bg:#070707;--gold:#d4af37;--muted:#bdbdbd;--card:#0f0f0f;--glass:rgba(255,255,255,0.02);--maxw:1100px}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#030303);color:var(--gold);-webkit-font-smoothing:antialiased}
+  header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;max-width:var(--maxw);margin:10px auto}
+  #brand{display:flex;gap:12px;align-items:center}
+  #logo{width:46px;height:46px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#b98e23);display:flex;align-items:center;justify-content:center;color:#060606;font-weight:800}
+  /* desktop nav */
+  #nav{display:flex;gap:12px}
+  #nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;transition:all .15s}
+  #nav a:hover{color:var(--gold);background:var(--glass)}
+  /* hamburger for mobile */
+  #hamb{display:none;width:44px;height:44px;align-items:center;justify-content:center;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  #hamb span{display:block;width:20px;height:2px;background:var(--gold);border-radius:2px;box-shadow:0 6px 12px rgba(212,175,55,0.08)}
+  #mobileNav{display:none;position:fixed;top:0;right:0;height:100%;width:260px;background:#070707;padding:24px;box-shadow:-12px 0 40px rgba(0,0,0,0.7)}
+  #mobileNav a{display:block;color:var(--muted);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.02)}
+  main{max-width:var(--maxw);margin:18px auto;padding:22px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .contact-item{padding:16px;border-radius:10px;background:#0b0b0b;border:1px solid rgba(255,255,255,0.02)}
+  .contact-item h4{margin:0 0 8px;color:var(--gold)}
+  .socials a{display:inline-block;margin-right:10px;color:var(--muted);text-decoration:none;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+  .socials a:hover{color:#000;background:var(--gold)}
+  footer{text-align:center;padding:18px;color:var(--muted);margin-top:22px}
+  @media (max-width:900px){
+    .contact-grid{grid-template-columns:1fr}
+    #nav{display:none}
+    #hamb{display:flex}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div id="brand">
+      <div id="logo">JS</div>
+      <div>
+        <div style="font-weight:700;color:#fff">Jaydeep Solanki</div>
+        <div style="color:var(--muted);font-size:.85rem">Get in touch</div>
+      </div>
+    </div>
+
+    <nav id="nav" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div id="hamb" aria-hidden="true" aria-label="Open navigation" role="button">
+      <span></span>
+    </div>
+  </header>
+
+  <div id="mobileNav" aria-hidden="true" style="display:none;">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <main>
+    <section class="card">
+      <h2 style="color:var(--gold);margin-top:0">Contact Me</h2>
+      <p style="color:var(--muted)">You reached the contact page — navigation is now unlocked. Replace placeholders with your real details.</p>
+
+      <div class="contact-grid" style="margin-top:18px">
+        <div class="contact-item">
+          <h4>Phone</h4>
+          <div style="color:var(--muted)">+91 9313578143</div>
+        </div>
+
+        <div class="contact-item">
+          <h4>Email</h4>
+          <div style="color:var(--muted)">jaydeeprsolanki5@gmail.com</div>
+        </div>
+
+        <div class="contact-item">
+          <h4>LinkedIn</h4>
+          <div style="color:var(--muted)">www.linkedin.com/in/jaydeep-solanki2007</div>
+        </div>
+
+        <div class="contact-item">
+          <h4>Social</h4>
+          <div class="socials" style="margin-top:8px">
+            <a href="https://instagram.com/mali_jaydeep_07" target="_blank">Instagram</a>
+            <a href="https://github.com/Jaydeep-Solanki2007" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Jaydeep Solanki — Portfolio
+  </footer>
+
+<script>
+  // Unlock global nav when user reaches contact
+  localStorage.setItem('navUnlocked','1');
+
+  // show nav after unlocking
+  const nav = document.getElementById('nav');
+  nav.style.display = 'flex';
+  nav.setAttribute('aria-hidden','false');
+
+  // mobile hamburger toggle
+  const hamb = document.getElementById('hamb');
+  const mnav = document.getElementById('mobileNav');
+  let open = false;
+  function openMobile(){
+    mnav.style.display = 'block';
+    mnav.style.transition = 'transform .28s ease';
+    mnav.style.transform = 'translateX(0)';
+    mnav.setAttribute('aria-hidden','false');
+    open = true;
+  }
+  function closeMobile(){
+    mnav.style.transform = 'translateX(24px)';
+    setTimeout(()=> mnav.style.display='none',280);
+    mnav.setAttribute('aria-hidden','true');
+    open = false;
+  }
+  hamb.addEventListener('click', ()=>{
+    if(open) closeMobile(); else openMobile();
+  });
+
+  // ensure desktop nav visible on load if unlocked
+  if(localStorage.getItem('navUnlocked') === '1'){
+    nav.style.display = 'flex';
+    nav.setAttribute('aria-hidden','false');
+  } else {
+    nav.style.display = 'none';
+  }
+</script>
+</body>
+</html>
