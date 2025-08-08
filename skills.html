@@ -1,0 +1,127 @@
+<!-- skills.html -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Skills — Jaydeep Solanki</title>
+<style>
+  :root{--bg:#070707;--gold:#d4af37;--muted:#bdbdbd;--card:#0f0f0f;--glass:rgba(255,255,255,0.02);--maxw:1100px}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#040404);color:var(--gold)}
+  header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;max-width:var(--maxw);margin:8px auto}
+  #brand{display:flex;gap:12px;align-items:center}
+  #logo{width:50px;height:50px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#b98e23);display:flex;align-items:center;justify-content:center;color:#060606;font-weight:800;box-shadow:0 8px 30px rgba(212,175,55,0.1)}
+  #nav{display:none}
+  #nav a{color:var(--muted);text-decoration:none;margin-left:14px;padding:6px 10px;border-radius:8px}
+  main{max-width:var(--maxw);margin:18px auto;padding:22px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .skill{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(0,0,0,0.6);opacity:0;transform:translateY(18px);transition:all .6s}
+  .skill.show{opacity:1;transform:none}
+  .skill h3{margin:0 0 8px;color:var(--gold)}
+  .bar{height:10px;border-radius:999px;background:linear-gradient(90deg,#222,#111);overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+  .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#b98e23);box-shadow:0 4px 18px rgba(212,175,55,0.14);transition:width 1s ease}
+  #toContact{display:inline-block;margin-top:22px;padding:12px 18px;border-radius:10px;background:transparent;border:2px solid var(--gold);color:var(--gold);cursor:pointer;font-weight:700}
+  #toContact:hover{background:var(--gold);color:#000;transform:translateY(-3px)}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr;padding:12px}}
+</style>
+</head>
+<body>
+  <header>
+    <div id="brand">
+      <div id="logo">JS</div>
+      <div>
+        <div style="font-weight:700;color:#fff">Jaydeep Solanki</div>
+        <div style="color:var(--muted);font-size:.9rem">Skills & Expertise</div>
+      </div>
+    </div>
+
+    <nav id="nav" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 style="color:var(--gold);margin-bottom:14px">Technical Skills</h2>
+
+    <section class="grid">
+      <div class="skill" data-fill="90">
+        <h3>HTML &amp; CSS</h3>
+        <div style="color:var(--muted);margin-bottom:8px">Responsive layouts, Flexbox, Grid</div>
+        <div class="bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-fill="82">
+        <h3>JavaScript (Vanilla)</h3>
+        <div style="color:var(--muted);margin-bottom:8px">DOM, Events, Fetch, ES6+</div>
+        <div class="bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-fill="70">
+        <h3>Databases (SQL / Oracle 11g)</h3>
+        <div style="color:var(--muted);margin-bottom:8px">Normalization, Queries, Joins</div>
+        <div class="bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-fill="68">
+        <h3>Git &amp; GitHub</h3>
+        <div style="color:var(--muted);margin-bottom:8px">Version control, repos, workflows</div>
+        <div class="bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-fill="60">
+        <h3>Backend basics (Node.js)</h3>
+        <div style="color:var(--muted);margin-bottom:8px">APIs, routing, JSON</div>
+        <div class="bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-fill="55">
+        <h3>Other Tools</h3>
+        <div style="color:var(--muted);margin-bottom:8px">VS Code, Debugging, Chrome DevTools</div>
+        <div class="bar"><i></i></div>
+      </div>
+    </section>
+
+    <div style="text-align:center;margin-top:28px">
+      <button id="toContact">Go to Contact</button>
+    </div>
+  </main>
+
+<script>
+  // show nav if unlocked
+  if(localStorage.getItem('navUnlocked') === '1'){
+    const nav = document.getElementById('nav');
+    nav.style.display = 'block';
+    nav.setAttribute('aria-hidden','false');
+  }
+
+  // reveal with IntersectionObserver and animate bars
+  const items = document.querySelectorAll('.skill');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting){
+        const el = ent.target;
+        el.classList.add('show');
+        const fill = el.getAttribute('data-fill') || 60;
+        const bar = el.querySelector('i');
+        setTimeout(()=> bar.style.width = fill + '%', 200);
+        obs.unobserve(el);
+      }
+    });
+  }, {threshold:0.18});
+
+  items.forEach(it => obs.observe(it));
+
+  document.getElementById('toContact').addEventListener('click', ()=>{
+    document.querySelector('main').style.transition = 'opacity .35s, transform .35s';
+    document.querySelector('main').style.opacity = '0';
+    document.querySelector('main').style.transform = 'translateY(-12px)';
+    setTimeout(()=> location.href='contact.html', 360);
+  });
+</script>
+</body>
+</html>
