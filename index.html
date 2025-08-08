@@ -1,40 +1,90 @@
-<!DOCTYPE html>
+<!-- index.html -->
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Home</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header { background: #333; color: white; padding: 10px 20px; }
-        nav a { color: white; margin-right: 15px; text-decoration: none; }
-        section { padding: 20px; }
-        #skills { background: #f4f4f4; padding: 20px; }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Welcome — Jaydeep Solanki</title>
+<style>
+  :root{
+    --bg1:#070707;
+    --bg2:#0b0b0b;
+    --gold:#d4af37;
+    --muted:#bdbdbd;
+    --card:#0f0f0f;
+    --maxw:1100px;
+    --glass: rgba(212,175,55,0.06);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:var(--gold);background:linear-gradient(180deg,var(--bg1),var(--bg2));-webkit-font-smoothing:antialiased}
+  #welcome{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;text-align:center}
+  #card{max-width:900px;width:100%;padding:48px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);box-shadow:0 10px 40px rgba(0,0,0,0.6);border:1px solid var(--glass);transform-origin:center;opacity:0;transform:translateY(24px) scale(.99);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.9,.2,1)}
+  #card.show{opacity:1;transform:translateY(0) scale(1)}
+  #title{font-size:2.6rem;margin:0 0 8px;color:var(--gold);text-shadow:0 6px 30px rgba(212,175,55,0.12)}
+  #intro{color:var(--muted);font-size:1.05rem;margin:0 0 22px}
+  #name{color:#fff;font-weight:700}
+  #enterBtn{display:inline-block;padding:12px 26px;border-radius:10px;border:2px solid var(--gold);background:transparent;color:var(--gold);font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(212,175,55,0.08);transition:all .25s}
+  #enterBtn:hover{background:var(--gold);color:#000;transform:translateY(-4px);box-shadow:0 18px 60px rgba(212,175,55,0.16)}
+#skip{
+  display: block;
+  margin-top:14px;
+  font-size:1.5rem;
+  color:var(--gold);
+  cursor:pointer;
+  transition:transform .2s ease, opacity .2s ease;
+}
+#skip:hover{
+  transform:translateX(4px);
+  opacity:0.8;
+}
+  /* small decorative subtitle */
+  #role{display:inline-block;margin-top:8px;color:var(--muted);font-size:.9rem;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+  /* responsive */
+  @media (max-width:600px){
+    #card{padding:28px}
+    #title{font-size:1.8rem}
+    #enterBtn{padding:10px 18px}
+  }
+</style>
 </head>
 <body>
+  <main id="welcome">
+    <div id="card" role="region" aria-label="Welcome card">
+      <h1 id="title">Welcome to my portfolio</h1>
+      <p id="intro">Hi, I'm <span id="name">Jaydeep Solanki</span> — Web Developer • BCA Student</p>
+      <div id="role">Web Development • Databases • Problem Solving</div>
 
-<header>
-    <h1>My Portfolio</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Me</a>
-    </nav>
-</header>
+      <div style="margin-top:28px">
+        <button id="enterBtn" aria-label="Enter portfolio">Enter Portfolio</button>
+<div id="skip" aria-role="button" tabindex="0">&#10140;</div>
+      </div>
+    </div>
+  </main>
 
-<section>
-    <h2>Welcome to My Portfolio</h2>
-    <p>Hi, I’m a web developer who loves coding and learning new tools.</p>
-</section>
+<script>
+  // entrance animation
+  window.addEventListener('load', ()=>{ document.getElementById('card').classList.add('show'); });
 
-<section id="skills">
-    <h2>My Skills</h2>
-    <ul>
-        <li>HTML, CSS, JavaScript</li>
-        <li>React.js</li>
-        <li>SQL & Databases</li>
-    </ul>
-</section>
+  // Enter button: smooth transition then redirect to about
+  document.getElementById('enterBtn').addEventListener('click', ()=>{
+    const card = document.getElementById('card');
+    card.style.transition = 'opacity .45s ease, transform .45s ease';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(-20px) scale(.98)';
+    setTimeout(()=> location.href = 'about.html', 470);
+  });
 
+  // Skip: unlock navigation and go to about
+  document.getElementById('skip').addEventListener('click', ()=>{
+    localStorage.setItem('navUnlocked', '1');
+    // small feedback animation
+    const skip = document.getElementById('skip');
+    skip.style.opacity = '.5';
+    setTimeout(()=> location.href='about.html',220);
+  });
+
+  // keyboard accessible for skip
+  document.getElementById('skip').addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('skip').click(); }});
+</script>
 </body>
 </html>
