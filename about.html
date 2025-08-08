@@ -1,0 +1,125 @@
+<!-- about.html -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — Jaydeep Solanki</title>
+<style>
+  :root{
+    --bg:#070707; --card:#0f0f0f; --gold:#d4af37; --muted:#bdbdbd; --glass:rgba(255,255,255,0.02); --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#060606);color:var(--gold)}
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;max-width:var(--maxw);margin:14px auto}
+  #brand{display:flex;gap:14px;align-items:center}
+  #logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#b98e23);display:flex;align-items:center;justify-content:center;color:#0a0a0a;font-weight:800;box-shadow:0 8px 30px rgba(212,175,55,0.12)}
+  #nav{display:none} /* locked by default — will show when unlocked */
+  #nav a{color:var(--muted);text-decoration:none;margin-left:18px;padding:6px 10px;border-radius:8px;transition:all .18s}
+  #nav a:hover{color:var(--gold);background:var(--glass)}
+  main{max-width:var(--maxw);margin:20px auto;padding:20px}
+  .panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:26px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+  .intro{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:start}
+  .intro .text h2{margin:0 0 10px;color:var(--gold);font-size:1.8rem}
+  .intro .text p{color:var(--muted);line-height:1.6}
+  .avatar{width:100%;height:260px;border-radius:10px;background:linear-gradient(180deg,#111,#0b0b0b);display:flex;align-items:center;justify-content:center;color:var(--gold);box-shadow:inset 0 3px 10px rgba(0,0,0,0.6)}
+  /* image placeholders */
+  .pics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+  .pic{height:120px;border-radius:8px;background:linear-gradient(135deg,#141414,#0d0d0d);box-shadow:0 8px 30px rgba(212,175,55,0.06);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+  /* reveal animations */
+  .reveal{opacity:0;transform:translateY(18px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
+  .reveal.show{opacity:1;transform:none}
+  /* button */
+  #toSkills{display:inline-block;margin-top:22px;padding:12px 18px;border-radius:10px;background:transparent;border:2px solid var(--gold);color:var(--gold);cursor:pointer;font-weight:700;transition:all .25s}
+  #toSkills:hover{background:var(--gold);color:#000;transform:translateY(-3px);box-shadow:0 20px 50px rgba(212,175,55,0.12)}
+  /* responsive */
+  @media (max-width:900px){
+    .intro{grid-template-columns:1fr; }
+    .avatar{height:200px}
+    .pics{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div id="brand">
+      <div id="logo">JS</div>
+      <div>
+        <div style="font-weight:700;color:#fff">Jaydeep Solanki</div>
+        <div style="color:var(--muted);font-size:.9rem">Web Developer • BCA Student</div>
+      </div>
+    </div>
+
+    <nav id="nav" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panel intro">
+      <div class="text">
+        <h2 class="reveal">About Me</h2>
+        <p class="reveal">I am <strong style="color:#fff">Jaydeep Solanki</strong>, a BCA student and passionate web developer. I build user-friendly web apps, design relational databases, and enjoy working on full-stack projects. I focus on clean code, reliability, and practical solutions that solve real problems.</p>
+
+        <p class="reveal">My core competencies include front-end development with HTML/CSS/JavaScript, database design with SQL and Oracle 11g, and tooling with VS Code and GitHub. I enjoy learning new technologies, debugging complex problems, and optimizing systems for performance and maintainability.</p>
+
+        <div class="reveal" style="margin-top:12px">
+          <strong style="color:var(--muted)">Working style:</strong>
+          <ul style="color:var(--muted);margin:8px 0 0 18px">
+            <li>Analytical &amp; detail oriented</li>
+            <li>Collaborative — open to feedback</li>
+            <li>Learner mindset — keep improving</li>
+          </ul>
+        </div>
+
+        <button id="toSkills" class="reveal">Go to Skills</button>
+      </div>
+
+      <aside>
+        <div class="avatar reveal">Profile Image / Placeholder</div>
+        <div class="pics">
+          <div class="pic reveal">Project 1</div>
+          <div class="pic reveal">Project 2</div>
+          <div class="pic reveal">Project 3</div>
+        </div>
+      </aside>
+    </section>
+
+    <div style="height:36px"></div>
+  </main>
+
+<script>
+  // Toggle nav visibility based on localStorage flag
+  function updateNav(){
+    const nav = document.getElementById('nav');
+    const unlocked = localStorage.getItem('navUnlocked') === '1';
+    if(unlocked){ nav.style.display = 'block'; nav.setAttribute('aria-hidden','false'); }
+    else { nav.style.display = 'none'; nav.setAttribute('aria-hidden','true'); }
+  }
+  updateNav();
+
+  // IntersectionObserver for reveal elements
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting){ ent.target.classList.add('show'); io.unobserve(ent.target); }
+    });
+  }, {threshold:0.16});
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Button to skills
+  document.getElementById('toSkills').addEventListener('click', ()=> {
+    // transition effect
+    document.querySelector('.panel').style.transition = 'opacity .4s, transform .4s';
+    document.querySelector('.panel').style.opacity = '0';
+    document.querySelector('.panel').style.transform = 'translateY(-18px)';
+    setTimeout(()=> location.href='skills.html', 420);
+  });
+
+  // If user clicked Enter from welcome, nav still locked -> handled by localStorage from welcome (skip)
+</script>
+</body>
+</html>
